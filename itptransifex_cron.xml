@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="file" version="3.4" method="upgrade">
+<extension type="file" version="3.6" method="upgrade">
 	<name>ITP Transifex CRON</name>
 	<author>Todor Iliev</author>
-	<copyright>Copyright (C) 2015 Todor Iliev ( ITPrism.com )</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html</license>
+	<copyright>Copyright (C) 2016 Todor Iliev ( ITPrism.com )</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPLv3</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>1.0</version>
-	<creationDate>02 September, 2015</creationDate>
-	<description>ITP Transifex CRON is a CLI script that should be executed from command line as CRON job.</description>
+	<version>1.1</version>
+	<creationDate>26 October, 2016</creationDate>
+	<description>ITPTransifex CRON is a CLI script that should be executed from command line as CRON job.</description>
 
 	<fileset>
 		<files target="cli/">
 			<filename>itptransifex_cron.php</filename>
 		</files>
 	</fileset>
+	
+	<updateservers>
+        <server type="extension" priority="1" name="CLI - ITPTransifex Cron">http://cdn.itprism.com/updates/itptransifex/cli_itptransifexcron.xml</server>
+    </updateservers>
 </extension>

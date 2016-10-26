@@ -66,12 +66,12 @@ class ItptransifexCronCli extends JApplicationCli
      *
      * @var    string
      */
-    private $time = null;
+    private $time;
 
     public function doExecute()
     {
         // Print a blank line.
-        $this->out(JText::_('ITP Transifex CRON'));
+        $this->out(JText::_('ITPTransifex CRON'));
         $this->out('============================');
 
         // Initialize the time value.
@@ -87,6 +87,7 @@ class ItptransifexCronCli extends JApplicationCli
         // Get options.
         $create  = $this->input->getString('create', false);
         $update  = $this->input->getString('update', false);
+        $execute = $this->input->getString('execute', false);
 
         $context = $this->input->getCmd('context');
 
@@ -94,26 +95,22 @@ class ItptransifexCronCli extends JApplicationCli
         JPluginHelper::importPlugin('itptransifexcron');
 
         try {
-
             if ($create) {
-
-                $context = "com_itptransifex.cron.create." . $context;
+                $context = 'com_itptransifex.cron.create.' . $context;
                 $this->out('create context: '.$context);
                 $this->out('============================');
 
                 JEventDispatcher::getInstance()->trigger('onCronCreate', array($context));
 
             } elseif ($update) {
-
-                $context = "com_itptransifex.cron.update." . $context;
+                $context = 'com_itptransifex.cron.update.' . $context;
                 $this->out('update context: '.$context);
                 $this->out('============================');
 
                 JEventDispatcher::getInstance()->trigger('onCronUpdate', array($context));
 
-            } else { // Execute
-
-                $context = "com_itptransifex.cron.execute." . $context;
+            } elseif ($execute) { // Execute
+                $context = 'com_itptransifex.cron.execute.' . $context;
                 $this->out('execute context: '.$context);
                 $this->out('============================');
 
@@ -121,7 +118,6 @@ class ItptransifexCronCli extends JApplicationCli
             }
 
         } catch (Exception $e) {
-
             $this->logErrors($e->getMessage());
             $this->out($e->getMessage());
         }
@@ -137,8 +133,8 @@ class ItptransifexCronCli extends JApplicationCli
     {
         $config = JFactory::getConfig();
 
-        if (is_writable($config->get("log_path"))) {
-            $logFile = $config->get("log_path").DIRECTORY_SEPARATOR."error_cron.txt";
+        if (is_writable($config->get('log_path'))) {
+            $logFile = $config->get('log_path').DIRECTORY_SEPARATOR.'error_cron.txt';
             file_put_contents($logFile, $content ."\n", FILE_APPEND);
         }
     }
